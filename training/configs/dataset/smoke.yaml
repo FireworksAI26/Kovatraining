@@ -1,0 +1,13 @@
+# The next agent must replace this path with a frozen, provenance-validated
+# DatasetDict saved by datasets.save_to_disk(). No benchmark data is permitted.
+blend_size: 700
+splits:
+  train: 0.80
+  eval: 0.10
+  test: 0.10
+sources:
+  - hf_path: /data/kova/frozen-smoke
+    split: train
+    ratio: 700
+    category: verified_coding
+    train_only_assistant_tokens: false
