@@ -11,6 +11,7 @@ from pathlib import Path
 
 from .config import CampaignConfig
 from .preflight import run_daytona_preflight
+from .training import write_handoff
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -19,6 +20,8 @@ def build_parser() -> argparse.ArgumentParser:
     subcommands.add_parser("validate", help="validate immutable campaign policy")
     preflight = subcommands.add_parser("preflight", help="run read-only Daytona checks")
     preflight.add_argument("--output", type=Path, default=Path(".campaign/preflight.json"))
+    handoff = subcommands.add_parser("handoff", help="write the code-only training handoff")
+    handoff.add_argument("--output", type=Path, default=Path(".campaign/handoff.json"))
     return parser
 
 
@@ -43,6 +46,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         report.save(args.output)
         print(json.dumps(asdict(report), indent=2, sort_keys=True))
         return 0 if report.ready_for_billable_smoke else 2
+    if args.command == "handoff":
+        write_handoff(config, args.output)
+        print(json.dumps({"output": str(args.output), "status": "code_only"}, sort_keys=True))
+        return 0
     raise AssertionError("unreachable command")
 
 

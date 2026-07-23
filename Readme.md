@@ -25,3 +25,20 @@ Authenticated read-only preflight:
 
 The command exits with status 2 and records its blockers when the Daytona key
 cannot read organization quota or a protected starting-balance source is absent.
+
+## Code-only training handoff
+
+The repository includes a pinned, non-provisioning GPU handoff in
+[`training/`](training/README.md). It contains the eight-GPU NCCL probe, GLM
+attention-only rank-64 adapter smoke entrypoint, forced stop/resume sequence,
+budget callback, checksum manifests, and private checkpoint replication.
+
+Generate a machine-readable summary without starting training:
+
+```bash
+.venv/bin/kova-campaign handoff
+```
+
+No cloud `create` call exists in this repository. The training path remains
+unverified until a future agent passes the live account, topology, and $250
+smoke gates described in the handoff.

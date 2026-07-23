@@ -1,0 +1,9 @@
+# Install into an NVIDIA CUDA/PyTorch image; do not replace its CUDA-matched torch wheel.
+nvidia-modelopt[hf]==0.45.0
+transformers==5.9.0
+peft==0.19.1
+accelerate==1.14.0
+datasets==5.0.0
+huggingface-hub==1.24.0
+liger-kernel==0.8.1
+flash-attn==2.8.3.post1
